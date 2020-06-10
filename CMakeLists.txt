@@ -2,9 +2,11 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.16)
 PROJECT(NPCAP LANGUAGES C)
 
 add_definitions(-D_WINDLL)
-add_library(PACKET_LIB "")
+add_definitions(-D_UNICODE)
 
-target_sources(PACKET_LIB
+add_library(packet "")
+
+target_sources(packet
     PRIVATE
         packetWin7/Dll/AdInfo.cpp
         packetWin7/Dll/netcfgapi.cpp
@@ -15,9 +17,10 @@ target_sources(PACKET_LIB
         packetWin7/Dll/debug.h
         packetWin7/Dll/netcfgapi.h
         packetWin7/Dll/Packet32-Int.h
+        Common/Packet32.h
         packetWin7/Dll/ProtInstall.h
-        packetWin7/Dll/strsafe.h
         )
 
-
-
+target_include_directories(packet
+PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Common
+)

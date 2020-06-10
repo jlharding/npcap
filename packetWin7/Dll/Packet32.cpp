@@ -87,6 +87,7 @@
 #pragma warning (disable : 4710) // inline function not expanded. used for strsafe functions
 #endif
 
+#include <string>
 #include <Packet32.h>
 #include <tchar.h>
 #include <strsafe.h>
@@ -948,6 +949,7 @@ static PCHAR NpcapTranslateMemory_Npcap2Npf(LPCSTR pStr, int iBufSize)
   \brief The main dll function.
 */
 
+#ifndef STATIC_LIB
 BOOL APIENTRY DllMain(HANDLE DllHandle, DWORD Reason, LPVOID lpReserved)
 {
 	TRACE_ENTER();
@@ -1057,7 +1059,7 @@ BOOL APIENTRY DllMain(HANDLE DllHandle, DWORD Reason, LPVOID lpReserved)
     return Status;
 }
 
-
+#endif // STATIC_LIB
 #ifdef LOAD_OPTIONAL_LIBRARIES
 /*! 
   \brief This function is used to dynamically load some of the libraries winpcap depends on, 
@@ -2718,7 +2720,7 @@ VOID PacketInitPacket(LPPACKET lpPacket,PVOID Buffer,UINT Length)
   values, here only the normal capture mode will be described.
 
   The number of packets received with this function is variable. It depends on the number of packets 
-  currently stored in the driver’s buffer, on the size of these packets and on the size of the buffer 
+  currently stored in the driverï¿½s buffer, on the size of these packets and on the size of the buffer 
   associated to the lpPacket parameter. The following figure shows the format used by the driver to pass 
   packets to the application. 
 
